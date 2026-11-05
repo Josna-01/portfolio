@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amisha Josna Dsouza — Computer Science &amp; AI Systems Engineer</title>
+  
+  <!-- Google Fonts for Sketch Design System -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Kalam:wght@400;700&family=Patrick+Hand&family=Permanent+Marker&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Authoritative Tokens for Sketch Design System */
+    :root {
+      --dp-color-ground: #f7f2e7;
+      --dp-color-ink: #38352f;
+      --dp-color-ink-muted: #514d44;
+      --dp-color-line: #b3ac9d;
+      --dp-color-accent: #9e3a2e;
+      --dp-color-annotation: #344c69;
+      --dp-color-highlight: #f0dfa0;
+      --dp-color-scrap: #fcf8ef;
+      --dp-typography-reading-face: "Sketch Working Hand", "Patrick Hand", "Kalam", cursive;
+      --dp-typography-display-face: "Sketch Working Marker", "Permanent Marker", "Caveat", cursive;
+      --dp-typography-mono-face: "Fira Code", monospace;
+      --dp-typography-body: 24px;
+      --dp-typography-reading: 23px;
+      --dp-typography-detail: 21px;
+      --dp-spacing-item-gap: 16px;
+      --dp-radius-control: 9px 4px 17px 5px / 4px 12px 5px 9px;
+      --dp-border-fine-stroke: 1.5px;
+      --dp-motion-control: 100ms;
+    }
+
+    /* Base Reset & Typography */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--dp-color-ground);
+      color: var(--dp-color-ink);
+      font-family: var(--dp-typography-reading-face);
+      font-size: var(--dp-typography-reading);
+      line-height: 1.5;
+      background-image: 
+        radial-gradient(circle, rgba(179, 172, 157, 0.25) 1px, transparent 1px);
+      background-size: 28px 28px;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 24px 16px;
+    }
+
+    /* Headings & Display Typography */
+    h1, h2, h3, h4, h5, .display-font {
+      font-family: var(--dp-typography-display-face);
+      font-weight: 700;
+      color: var(--dp-color-ink);
+      line-height: 1.15;
+    }
+
+    .marker-heading {
+      font-family: var(--dp-typography-display-face);
+      letter-spacing: -0.01em;
+    }
+
+    .hand-reading {
+      font-family: var(--dp-typography-reading-face);
+      font-size: var(--dp-typography-body);
+    }
+
+    .detail-text {
+      font-size: var(--dp-typography-detail);
+      color: var(--dp-color-ink-muted);
+    }
+
+    .code-label {
+      font-family: var(--dp-typography-mono-face);
+      font-size: 15px;
+      letter-spacing: 0.02em;
+    }
+
+    /* Shared Working Sheet Container */
+    .working-sheet {
+      max-width: 1360px;
+      margin: 0 auto;
+      background-color: var(--dp-color-scrap);
+      border: var(--dp-border-fine-stroke) solid var(--dp-color-line);
+      border-radius: 14px 18px 12px 20px / 16px 12px 18px 14px;
+      box-shadow: 
+        3px 4px 0px rgba(56, 53, 47, 0.08),
+        8px 16px 36px rgba(56, 53, 47, 0.06);
+      position: relative;
+      padding: 36px 28px;
+    }
+
+    @media (min-width: 768px) {
+      .working-sheet {
+        padding: 56px 48px;
+      }
+    }
+
+    /* Sketch Corner Tape */
+    .tape {
+      position: absolute;
+      background: rgba(247, 242, 231, 0.85);
+      border: 1px dashed rgba(179, 172, 157, 0.6);
+      backdrop-filter: blur(1px);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      z-index: 10;
+      pointer-events: none;
+    }
+    .tape-top-left {
+      width: 100px;
+      height: 28px;
+      top: -12px;
+      left: 30px;
+      transform: rotate(-3.5deg);
+    }
+    .tape-top-right {
+      width: 110px;
+      height: 26px;
+      top: -10px;
+      right: 40px;
+      transform: rotate(2.5deg);
+    }
+
+    /* Handwritten Color Accents */
+    .color-accent { color: var(--dp-color-accent); }
+    .color-annotation { color: var(--dp-color-annotation); }
+    .color-ink-muted { color: var(--dp-color-ink-muted); }
+
+    .highlight-pill {
+      background-color: var(--dp-color-highlight);
+      padding: 1px 8px;
+      border-radius: 4px 6px 3px 5px;
+      display: inline-block;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .blue-note {
+      color: var(--dp-color-annotation);
+      font-style: italic;
+    }
+
+    .red-correction {
+      color: var(--dp-color-accent);
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Sketch Buttons */
+    .sketch-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 24px;
+      font-family: var(--dp-typography-display-face);
+      font-size: 21px;
+      color: var(--dp-color-ink);
+      background-color: var(--dp-color-ground);
+      border: var(--dp-border-fine-stroke) solid var(--dp-color-ink);
+      border-radius: var(--dp-radius-control);
+      box-shadow: 2.5px 3.5px 0px var(--dp-color-ink);
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform var(--dp-motion-control) ease, box-shadow var(--dp-motion-control) ease, background-color var(--dp-motion-control) ease;
+      position: relative;
+    }
+
+    .sketch-btn:hover {
+      transform: rotate(-1deg) translateY(-2px);
+      box-shadow: 3.5px 5px 0px var(--dp-color-ink);
+      background-color: #fff;
+    }
+
+    .sketch-btn:active {
+      transform: rotate(0deg) translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--dp-color-ink);
+    }
+
+    .sketch-btn-primary {
+      background-color: var(--dp-color-accent);
+      color: #fff;
+      border-color: var(--dp-color-accent);
+      box-shadow: 2.5px 3.5px 0px var(--dp-color-ink);
+    }
+
+    .sketch-btn-primary:hover {
+      background-color: #b34336;
+      color: #fff;
+    }
+
+    .sketch-btn-blue {
+      border-color: var(--dp-color-annotation);
+      color: var(--dp-color-annotation);
+      box-shadow: 2.5px 3.5px 0px var(--dp-color-annotation);
+    }
+
+    /* Accessible focus indicator */
+    button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
+      outline: 2px dashed var(--dp-color-annotation) !important;
+      outline-offset: 4px !important;
+    }
+
+    /* Drawn Lines, Underlines & Brackets */
+    .drawn-rule {
+      border: none;
+      border-top: var(--dp-border-fine-stroke) solid var(--dp-color-line);
+      margin: 36px 0;
+      position: relative;
+    }
+    .drawn-rule::after {
+      content: "";
+      position: absolute;
+      top: -1px;
+      left: 15%;
+      width: 40%;
+      border-top: 1px dashed rgba(179, 172, 157, 0.8);
+    }
+
+    .irregular-underline {
+      position: relative;
+      display: inline-block;
+    }
+    .irregular-underline svg {
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 100%;
+      height: 12px;
+      pointer-events: none;
+    }
+
+    /* Scrap Notes & Taped Reference Cards */
+    .scrap-card {
+      background-color: var(--dp-color-scrap);
+      border: var(--dp-border-fine-stroke) solid var(--dp-color-line);
+      border-radius: var(--dp-radius-control);
+      padding: 24px;
+      position: relative;
+      box-shadow: 2px 3px 0px rgba(56, 53, 47, 0.07);
+      transition: transform var(--dp-motion-control) ease;
+    }
+
+    .scrap-card-tilted {
+      transform: rotate(-0.75deg);
+    }
+    .scrap-card-tilted:hover {
+      transform: rotate(0deg) translateY(-2px);
+    }
+
+    .card-tape {
+      position: absolute;
+      top: -10px;
+      left: 35%;
+      width: 70px;
+      height: 20px;
+      background: rgba(240, 223, 160, 0.55);
+      border: 1px dashed rgba(179, 172, 157, 0.5);
+      transform: rotate(-2deg);
+      pointer-events: none;
+    }
+
+    /* Facts beneath a drawn bracket */
+    .fact-bracket {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 18px;
+      border-left: 3px solid var(--dp-color-annotation);
+      border-right: 3px solid var(--dp-color-annotation);
+      background-color: rgba(240, 223, 160, 0.25);
+      border-radius: 4px;
+      font-size: var(--dp-typography-detail);
+    }
+
+    /* Outlined Speech Notes */
+    .speech-note {
+      position: relative;
+      background: #fff;
+      border: var(--dp-border-fine-stroke) solid var(--dp-color-ink);
+      border-radius: 12px 14px 4px 12px;
+      padding: 18px 22px;
+      box-shadow: 2px 2.5px 0px var(--dp-color-ink);
+      margin: 16px 0;
+    }
+    .speech-note::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 28px;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 10px solid var(--dp-color-ink);
+    }
+
+    /* Horizontal Process Strip with Circled Numbers */
+    .process-strip {
+      background-color: #eee7d7;
+      border: var(--dp-border-fine-stroke) dashed var(--dp-color-line);
+      border-radius: 12px 8px 14px 10px;
+      padding: 24px;
+      margin: 28px 0;
+    }
+
+    .circled-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2px solid var(--dp-color-accent);
+      color: var(--dp-color-accent);
+      font-family: var(--dp-typography-display-face);
+      font-size: 20px;
+      font-weight: 700;
+      background-color: var(--dp-color-scrap);
+      flex-shrink: 0;
+    }
+
+    /* Layout Grid: Two-Column Working Spread at 1050px */
+    .editorial-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    @media (min-width: 1050px) {
+      .editorial-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 56px;
+      }
+    }
+
+    /* Reduced Motion Preference */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MAIN SHARED WORKING SHEET -->
+  <main class="working-sheet">
+    <!-- Taped Corners -->
+    <div class="tape tape-top-left" aria-hidden="true"></div>
+    <div class="tape tape-top-right" aria-hidden="true"></div>
+
+    <!-- HEADER / NAVIGATION STRIP -->
+    <header style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: var(--dp-border-fine-stroke) solid var(--dp-color-line); padding-bottom: 20px; margin-bottom: 32px; gap: 16px;">
+      <div>
+        <span class="code-label color-annotation" style="font-weight: 600;">[ WORKING DRAFT • 2026 ]</span>
+        <h1 style="font-size: 32px; margin-top: 4px;" class="marker-heading">AMISHA JOSNA DSOUZA</h1>
+        <p class="detail-text" style="color: var(--dp-color-ink-muted);">
+          Final-Year B.E. Computer Science &amp; Engineering • St. Joseph Engineering College
+        </p>
+      </div>
+
+      <nav aria-label="Page Sections" style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px;">
+        <a href="#about" class="detail-text color-ink" style="text-decoration: none; padding: 4px 8px; border-bottom: 1.5px dashed var(--dp-color-line);">About</a>
+        <a href="#work" class="detail-text color-ink" style="text-decoration: none; padding: 4px 8px; border-bottom: 1.5px dashed var(--dp-color-line);">My Work</a>
+        <a href="#case-studies" class="detail-text color-ink" style="text-decoration: none; padding: 4px 8px; border-bottom: 1.5px dashed var(--dp-color-line);">Case Studies</a>
+        <a href="#toolkit" class="detail-text color-ink" style="text-decoration: none; padding: 4px 8px; border-bottom: 1.5px dashed var(--dp-color-line);">Toolkit</a>
+        <a href="#contact" class="sketch-btn sketch-btn-primary" style="font-size: 18px; padding: 6px 18px;">
+          <span>Let's Connect</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </nav>
+    </header>
+
+    <!-- TWO-COLUMN WORKING SPREAD (Responsive at 1050px) -->
+    <div class="editorial-grid">
+
+      <!-- ======================================================== -->
+      <!-- LEFT PAGE: STATEMENT, CLUSTERS OF NOTES, DOMAIN CARDS   -->
+      <!-- ======================================================== -->
+      <section id="about" aria-label="Personal Overview and Technical Scope">
+
+        <!-- OPENING: Large handwritten statement with drawn arrow & notes cluster -->
+        <div style="position: relative; margin-bottom: 36px;">
+          <div style="display: inline-block; transform: rotate(-1.5deg); margin-bottom: 8px;">
+            <span class="color-accent marker-heading" style="font-size: 28px;">Hello world! </span>
+            <span class="blue-note" style="font-size: 22px;">(hand-crafted in India)</span>
+          </div>
+
+          <h2 class="marker-heading" style="font-size: clamp(38px, 5.5vw, 54px); text-transform: uppercase; line-height: 1.05;">
+            DEV <span class="irregular-underline">PORTFOLIO
+              <svg viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M2 14 Q 25 4, 50 15 T 98 12" fill="none" stroke="#9e3a2e" stroke-width="3" stroke-linecap="round"></path>
+              </svg>
+            </span>
+          </h2>
+
+          <p class="hand-reading" style="margin-top: 18px; color: var(--dp-color-ink); max-width: 580px;">
+            Software engineer passionate about architecting <span class="highlight-pill">resilient full-stack web applications</span>, scalable serverless pipelines on AWS/Azure, and AI-powered investigation tools.
+          </p>
+
+          <!-- Hand-drawn arrow directing attention toward main action -->
+          <div style="display: flex; align-items: center; gap: 16px; margin-top: 24px; flex-wrap: wrap;">
+            <a href="#case-studies" class="sketch-btn sketch-btn-primary">
+              <span>View Case Studies</span>
+            </a>
+            <a href="https://github.com/Josna-01" target="_blank" rel="noreferrer" class="sketch-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              <span>GitHub (Josna-01)</span>
+            </a>
+            <a href="https://linkedin.com/in/amisha-josna-dsouza-8064042b" target="_blank" rel="noreferrer" class="sketch-btn">
+              <span>LinkedIn</span>
+            </a>
+          </div>
+
+          <!-- Quick Fact Bracket -->
+          <div style="margin-top: 24px;">
+            <div class="fact-bracket">
+              <span class="color-accent marker-heading" style="font-size: 22px;">★</span>
+              <span>1st Place Winner — AWS AI for Bharat Hackathon 2026 (out of 96,000+ developers)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Taped Code Reference Notes (Staggered Scraps) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 32px 0;">
+          <div class="scrap-card scrap-card-tilted" style="padding: 16px;">
+            <div class="card-tape" aria-hidden="true"></div>
+            <span class="code-label color-annotation" style="font-size: 14px; font-weight: 600;"># backend_arch.py</span>
+            <p class="detail-text" style="margin-top: 6px;">FastAPI + AWS Bedrock + DynamoDB asynchronous worker threads.</p>
+          </div>
+          <div class="scrap-card" style="padding: 16px; transform: rotate(1deg);">
+            <div class="card-tape" style="background: rgba(255, 235, 235, 0.7); left: 40%;" aria-hidden="true"></div>
+            <span class="code-label color-accent" style="font-size: 14px; font-weight: 600;"># evidence_sha256.go</span>
+            <p class="detail-text" style="margin-top: 6px;">Cryptographic chain-of-custody audit logs with zero collision risk.</p>
+          </div>
+        </div>
+
+        <hr class="drawn-rule" aria-hidden="true">
+
+        <!-- SECTION: MY WORK INCLUDES (6 Domain Cards with line illustrations) -->
+        <div id="work">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px;">
+            <h3 class="marker-heading" style="font-size: 32px;">MY WORK INCLUDES</h3>
+            <span class="blue-note detail-text">① core engineering competencies</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px;">
+            
+            <!-- Card 1 -->
+            <article class="scrap-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <span class="marker-heading color-accent" style="font-size: 24px;">AI &amp; GenAI Systems</span>
+                  <span class="code-label color-ink-muted">01</span>
+                </div>
+                <p class="detail-text">
+                  RAG pipelines, automated content generation, and LLM orchestration with AWS Bedrock and Azure OpenAI.
+                </p>
+              </div>
+              <div class="code-label color-annotation" style="margin-top: 14px; font-size: 13px;">
+                Bedrock • LangChain • Azure AI
+              </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="scrap-card scrap-card-tilted" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <span class="marker-heading color-annotation" style="font-size: 24px;">Digital Forensics &amp; Evidence</span>
+                  <span class="code-label color-ink-muted">02</span>
+                </div>
+                <p class="detail-text">
+                  Tamper-proof evidence logging, SHA-256 verification, photogrammetry tracking, and OCR analysis.
+                </p>
+              </div>
+              <div class="code-label color-annotation" style="margin-top: 14px; font-size: 13px;">
+                FastAPI • PostgreSQL • Tesseract OCR
+              </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="scrap-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <span class="marker-heading" style="font-size: 24px;">Full-Stack Web Apps</span>
+                  <span class="code-label color-ink-muted">03</span>
+                </div>
+                <p class="detail-text">
+                  Clean responsive UIs, dynamic state management, serverless bookings, and smooth interactions.
+                </p>
+              </div>
+              <div class="code-label color-annotation" style="margin-top: 14px; font-size: 13px;">
+                React • TypeScript • Tailwind • Framer
+              </div>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="scrap-card scrap-card-tilted" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <span class="marker-heading color-accent" style="font-size: 24px;">Cloud &amp; Serverless Infra</span>
+                  <span class="code-label color-ink-muted">04</span>
+                </div>
+                <p class="detail-text">
+                  Architecting multi-service cloud solutions on AWS &amp; Azure with Lambda, S3, DynamoDB, and Rekognition.
+                </p>
+              </div>
+              <div class="code-label color-annotation" style="margin-top: 14px; font-size: 13px;">
+                AWS Lambda • DynamoDB • Rekognition
+              </div>
+            </article>
+
+            <!-- Card 5 -->
+            <article class="scrap-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <span class="marker-heading" style="font-size: 24px;">Data Engineering &amp; DBs</span>
+                  <span class="code-label color-ink-muted">05</span>
+                </div>
+                <p class="detail-text">
+                  Relational &amp; document stores, data modeling, automated ETL, and Microsoft Fabric Lakehouse pipelines.
+                </p>
+              </div>
+              <div class="code-label color-annotation" style="margin-top: 14px; font-size: 13px;">
+                PostgreSQL • MySQL • Supabase • Fabric
+              </div>
+            </article>
+
+            <!-- Card 6 -->
+            <article class="scrap-card scrap-card-tilted" style="display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                  <span class="marker-heading color-annotation" style="font-size: 24px;">Cryptography &amp; Logic</span>
+                  <span class="code-label color-ink-muted">06</span>
+                </div>
+                <p class="detail-text">
+                  Hardware logic implementation, cipher decryption, and cryptographic security protocols.
+                </p>
+              </div>
+              <div class="code-label color-annotation" style="margin-top: 14px; font-size: 13px;">
+                C++ • Digital Logic • Ciphers
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <hr class="drawn-rule" aria-hidden="true">
+
+        <!-- SECTION: ENGINEER TOOLKIT & EDUCATION PLAQUE -->
+        <div id="toolkit">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px;">
+            <h3 class="marker-heading" style="font-size: 32px;">ENGINEER TOOLKIT</h3>
+            <span class="blue-note detail-text">② certifications &amp; academics</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
+            <!-- Certifications List -->
+            <div class="scrap-card">
+              <span class="code-label color-annotation" style="font-weight: 600; text-transform: uppercase;">Verified Credentials</span>
+              <ul style="list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 10px;">
+                <li style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--dp-color-line); padding-bottom: 6px;">
+                  <div>
+                    <strong style="color: var(--dp-color-ink);">Microsoft Certified: Fabric Data Engineer Associate (DP-700)</strong>
+                    <div class="detail-text">Lakehouse analytics &amp; scalable data workloads</div>
+                  </div>
+                  <span class="highlight-pill" style="font-size: 15px; font-family: var(--dp-typography-mono-face);">ACTIVE</span>
+                </li>
+                <li style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--dp-color-line); padding-bottom: 6px;">
+                  <div>
+                    <strong style="color: var(--dp-color-ink);">Programming in C++ — NPTEL, IIT Kharagpur</strong>
+                    <div class="detail-text">Object-oriented architecture &amp; algorithms</div>
+                  </div>
+                  <span class="highlight-pill" style="font-size: 15px; font-family: var(--dp-typography-mono-face);">VERIFIED</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Education Mount / Plaque -->
+            <div class="scrap-card" style="background-color: #fff; border: 2px solid var(--dp-color-ink); text-align: center; padding: 28px;">
+              <div class="card-tape" style="top: -12px; left: 45%;" aria-hidden="true"></div>
+              <span class="detail-text blue-note" style="display: block; margin-bottom: 4px;">Degree Candidacy • Class of 2027</span>
+              <h4 class="marker-heading" style="font-size: 26px; text-transform: uppercase;">
+                B.E. IN COMPUTER SCIENCE &amp; ENGINEERING
+              </h4>
+              <p class="hand-reading" style="margin-top: 6px; color: var(--dp-color-ink-muted);">
+                St. Joseph Engineering College, Mangalore
+              </p>
+              <div style="margin-top: 14px; display: inline-block; padding: 4px 14px; background: var(--dp-color-highlight); border: 1px solid var(--dp-color-ink); border-radius: 4px; font-family: var(--dp-typography-mono-face); font-size: 17px; font-weight: 600;">
+                Cumulative CGPA: 8.3 / 10.00
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- RIGHT PAGE: CASE STUDIES, PROCESS FLOW, PERFORMANCE     -->
+      <!-- ======================================================== -->
+      <section id="case-studies" aria-label="Featured Case Studies and Proof of Work">
+
+        <!-- CASE STUDY 01: CONTENT ROOM (AWS AI FOR BHARAT WINNER) -->
+        <article class="scrap-card" style="margin-bottom: 36px; padding: 32px; background: #fff; border: 2px solid var(--dp-color-ink);">
+          <div class="card-tape" style="top: -12px; left: 20px; width: 90px; background: rgba(254, 245, 216, 0.85);" aria-hidden="true"></div>
+          
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <span class="code-label color-annotation" style="font-weight: 600;">CASE STUDY 01 • HACKATHON WINNER</span>
+            <span class="highlight-pill color-accent" style="font-weight: 700; font-family: var(--dp-typography-mono-face); font-size: 15px;">
+              ★ 1st Place / 96,000+ Devs
+            </span>
+          </div>
+
+          <h3 class="marker-heading" style="font-size: 34px; margin-top: 10px; color: var(--dp-color-ink);">
+            CONTENT ROOM — AI Content Platform
+          </h3>
+          <p class="detail-text" style="color: var(--dp-color-ink-muted); margin-bottom: 16px;">
+            AI-powered platform for automated content generation, intelligent multi-modal moderation, and scheduled optimization built on AWS serverless architecture.
+          </p>
+
+          <!-- The Challenge & The Approach -->
+          <div style="display: grid; grid-template-columns: 1fr; gap: 16px; margin: 18px 0;">
+            <div style="border-left: 3px solid var(--dp-color-accent); padding-left: 12px;">
+              <strong class="marker-heading" style="font-size: 20px; color: var(--dp-color-accent);">THE CHALLENGE</strong>
+              <p class="detail-text">
+                Scaling multi-modal content generation (images &amp; copy) while maintaining strict brand safety, sub-second content filtering, and predictable serverless costs.
+              </p>
+            </div>
+            <div style="border-left: 3px solid var(--dp-color-annotation); padding-left: 12px;">
+              <strong class="marker-heading" style="font-size: 20px; color: var(--dp-color-annotation);">THE ARCHITECTURE</strong>
+              <p class="detail-text">
+                Built on React, TypeScript, FastAPI, and integrated 13 native AWS services including Amazon Bedrock (Foundation Models), Lambda, DynamoDB, Rekognition, and EventBridge.
+              </p>
+            </div>
+          </div>
+
+          <!-- Process Strip on darker irregular paper with circled numbers -->
+          <div class="process-strip">
+            <span class="code-label color-annotation" style="font-weight: 600; display: block; margin-bottom: 12px;">AUTOMATED INFERENCE WORKFLOW</span>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="circled-number">1</span>
+                <span class="detail-text">User prompt ingested via FastAPI async endpoint with JWT validation.</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="circled-number">2</span>
+                <span class="detail-text">AWS Bedrock synthesizes localized marketing copy and visual prompts.</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="circled-number">3</span>
+                <span class="detail-text">Amazon Rekognition runs real-time automated safety &amp; moderation inspection.</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="circled-number">4</span>
+                <span class="detail-text">DynamoDB records telemetry and EventBridge schedules social publishing.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Highlighted Result Sheet -->
+          <div style="display: flex; justify-content: space-around; background: var(--dp-color-highlight); border: var(--dp-border-fine-stroke) solid var(--dp-color-ink); border-radius: 8px; padding: 14px; text-align: center; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <span class="marker-heading color-accent" style="font-size: 28px; display: block;">#1 / 96K+</span>
+              <span class="detail-text" style="font-size: 16px;">AWS Hackathon Win</span>
+            </div>
+            <div>
+              <span class="marker-heading color-annotation" style="font-size: 28px; display: block;">13</span>
+              <span class="detail-text" style="font-size: 16px;">AWS Services Connected</span>
+            </div>
+            <div>
+              <span class="marker-heading" style="font-size: 28px; display: block;">&lt; 850ms</span>
+              <span class="detail-text" style="font-size: 16px;">Moderation Latency</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- CASE STUDY 02: SECURE AUDITS (Digital Evidence Support System) -->
+        <article class="scrap-card" style="margin-bottom: 36px; padding: 32px;">
+          <div class="card-tape" style="top: -12px; right: 20px; width: 85px;" aria-hidden="true"></div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <span class="code-label color-annotation" style="font-weight: 600;">CASE STUDY 02 • FORENSIC INTEGRITY</span>
+            <span class="highlight-pill" style="font-size: 15px; font-family: var(--dp-typography-mono-face);">React • FastAPI • PostgreSQL</span>
+          </div>
+
+          <h3 class="marker-heading" style="font-size: 32px; margin-top: 10px;">
+            SECURE AUDITS — Digital Evidence Platform
+          </h3>
+          <p class="detail-text" style="margin-bottom: 14px;">
+            Digital evidence investigation and tracking platform featuring chain-of-custody verification, SHA-256 cryptographic hashing, photogrammetry tracking, and AI-powered Bharat Nyaya Sanhita (BNS) section prediction.
+          </p>
+
+          <div style="display: grid; grid-template-columns: 1fr; gap: 12px; margin: 16px 0;">
+            <div class="speech-note">
+              <span class="blue-note" style="font-size: 18px; font-weight: 600;">Why it matters:</span>
+              <p class="detail-text" style="margin-top: 4px;">
+                "Chain of custody in legal investigations fails when evidence files are altered or timestamps are rewritten. Secure Audits enforces immutable SHA-256 hashes at upload and matches case details to statutory BNS sections automatically."
+              </p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px;">
+            <span class="highlight-pill" style="background-color: #e2f4eb; border: 1px solid #c2e5d3;">✓ SHA-256 Checksums</span>
+            <span class="highlight-pill" style="background-color: #dceaf8; border: 1px solid #b8d4f1;">✓ Optical Character Recognition</span>
+            <span class="highlight-pill" style="background-color: #efe9f8; border: 1px solid #d5c8ed;">✓ BNS Section Predictor</span>
+            <span class="highlight-pill" style="background-color: #fde8de; border: 1px solid #f6ccb9;">✓ Photogrammetry Tagging</span>
+          </div>
+        </article>
+
+        <!-- ADDITIONAL PROJECTS & COMPETITIVE VICTORIES -->
+        <div class="scrap-card" style="margin-bottom: 36px; padding: 26px;">
+          <h4 class="marker-heading" style="font-size: 26px; margin-bottom: 14px;">MORE PROJECTS &amp; VICTORIES</h4>
+          
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <!-- LexAI -->
+            <div style="border-bottom: 1px dashed var(--dp-color-line); padding-bottom: 10px;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <strong class="marker-heading color-ink" style="font-size: 22px;">LexAI — Multilingual Legal Assistant</strong>
+                <span class="code-label color-annotation" style="font-size: 13px;">Azure OpenAI • RAG</span>
+              </div>
+              <p class="detail-text" style="margin-top: 4px;">
+                RAG pipeline using Azure AI Foundry and Azure AI Search providing conversational legal rights guidance across multiple Indian regional languages.
+              </p>
+            </div>
+
+            <!-- Relish Lodge Web App -->
+            <div style="border-bottom: 1px dashed var(--dp-color-line); padding-bottom: 10px;">
+              <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <strong class="marker-heading color-ink" style="font-size: 22px;">Relish Lodge, Bar &amp; Restaurant (Client App)</strong>
+                <span class="code-label color-accent" style="font-size: 13px;">React • TS • Tailwind</span>
+              </div>
+              <p class="detail-text" style="margin-top: 4px;">
+                Live digital front desk featuring dynamic menu synchronization, serverless room reservation flows, interactive maps, and tourism portals.
+              </p>
+            </div>
+
+            <!-- BitForge & Enigma Hackathons -->
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <strong class="marker-heading color-ink" style="font-size: 22px;">BitForge &amp; Enigma Redesign (Magnovite)</strong>
+                <span class="highlight-pill" style="font-size: 14px; font-weight: 700;">1st Place (2x Winner)</span>
+              </div>
+              <p class="detail-text" style="margin-top: 4px;">
+                Secured 1st place in digital hardware logic &amp; IC implementation (2026) and 1st place in cryptographic cipher decryption challenge (2025).
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+    <!-- LARGE RED CLOSING STATEMENT ABOVE LIGHTLY DIVIDED FOOTER -->
+    <div style="margin-top: 48px; text-align: center;">
+      <p class="marker-heading color-accent" style="font-size: clamp(26px, 4vw, 38px); line-height: 1.2; max-width: 900px; margin: 0 auto;">
+        "BUILDING HIGH-THROUGHPUT, SECURE SOFTWARE THAT TURNS AMBITIOUS IDEAS INTO REAL-WORLD IMPACT."
+      </p>
+      <div style="width: 120px; height: 3px; background-color: var(--dp-color-accent); margin: 16px auto 0; border-radius: 2px;" aria-hidden="true"></div>
+    </div>
+
+    <hr class="drawn-rule" aria-hidden="true" style="margin-top: 40px; margin-bottom: 28px;">
+
+    <!-- LIGHTLY DIVIDED FOOTER -->
+    <footer id="contact" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; align-items: start; padding-top: 8px;">
+      
+      <!-- Group 1: Identity & Location -->
+      <div>
+        <h5 class="marker-heading" style="font-size: 22px; margin-bottom: 6px;">AMISHA JOSNA DSOUZA</h5>
+        <p class="detail-text">Computer Science &amp; Engineering Student</p>
+        <p class="detail-text" style="color: var(--dp-color-ink-muted);">Mangalore, Karnataka, India</p>
+      </div>
+
+      <!-- Group 2: Quick Links & Channels -->
+      <div>
+        <h5 class="marker-heading" style="font-size: 22px; margin-bottom: 6px;">DIRECT CHANNELS</h5>
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <a href="mailto:amishajosnadsouza.1@gmail.com" class="detail-text color-annotation" style="text-decoration: underline;">
+            amishajosnadsouza.1@gmail.com
+          </a>
+          <span class="detail-text">+91 8105289501</span>
+          <a href="https://github.com/Josna-01" target="_blank" rel="noreferrer" class="detail-text color-ink" style="text-decoration: underline;">
+            github.com/Josna-01
+          </a>
+          <a href="https://linkedin.com/in/amisha-josna-dsouza-8064042b" target="_blank" rel="noreferrer" class="detail-text color-ink" style="text-decoration: underline;">
+            linkedin.com/in/amisha-josna-dsouza-8064042b
+          </a>
+        </div>
+      </div>
+
+      <!-- Group 3: Action / Call-to-action -->
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span class="code-label color-accent" style="font-weight: 600;">LOOKING FOR 2026/2027 ROLES</span>
+        <p class="detail-text">
+          Open to full-stack, software engineering, and AI/cloud internship or graduate opportunities.
+        </p>
+        <div>
+          <a href="mailto:amishajosnadsouza.1@gmail.com?subject=Portfolio%20Inquiry%20-%20Amisha%20Josna%20Dsouza" class="sketch-btn sketch-btn-primary" style="font-size: 19px; width: 100%;">
+            <span>Send An Email</span>
+            <span aria-hidden="true">✉</span>
+          </a>
+        </div>
+      </div>
+
+    </footer>
+
+  </main>
+
+</body>
+</html>
+
